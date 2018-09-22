@@ -6,73 +6,67 @@ import child_process from 'child_process';
 const getPort = Promise.promisify(require('get-port'));
 const fs = Promise.promisifyAll(require('fs'));
 
-fs.existsAsync = function(path) {
+fs.existsAsync = function (path) {
   return fs
     .openAsync(path, 'r')
-    .then(function(stats) {
-      return true;
-    })
-    .catch(function(stats) {
-      return false;
-    });
+    .then(stats => true)
+    .catch(stats => false);
 };
 
-export const initialize = function(openvpnpath, args) {
+export const initialize = function (openvpnpath, args) {
   return initialize(openvpnpath, args);
 };
 
-export const shutdown = function() {
+export const shutdown = function () {
   return shutdown();
 };
 
 function shutdown() {
-  return new Promise(function(resolve, reject) {
-    new Promise(function(resolve, reject) {});
-  });
+  return new Promise(((resolve, reject) => {
+    new Promise(((resolve, reject) => {}));
+  }));
 }
 
 function initialize(openvpnpath, args) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(((resolve, reject) => {
     fs.existsAsync(args.config)
-      .then(function(exists) {
-        if (!exists)
+      .then((exists) => {
+        if (!exists) {
           return console.info(
             'OpenVpn Config file not found, defaulting to "config.ovpn"'
           );
+        }
       })
-      .then(function() {
+      .then(() => {
         if (!args.port) {
-          return new Promise(function(resolve, reject) {
+          return new Promise(((resolve, reject) => {
             getPort()
-              .then(function(port) {
+              .then((port) => {
                 args.port = port;
                 resolve(args);
               })
               .catch(reject);
-          });
-        } else {
-          return args;
+          }));
         }
+        return args;
       })
       .then(getSetArgs)
-      .then(function(setargs) {
-        return child_process.execFileSync(openvpnpath, setargs);
-      })
-      .then(function() {
+      .then(setargs => child_process.execFileSync(openvpnpath, setargs))
+      .then(() => {
         resolve({
           port: args.port,
           host: args.host
         });
       })
       .catch(reject);
-  });
+  }));
 }
 
 function getSetArgs(args) {
-  var newargs;
+  let newargs;
   args = _.defaults(args, {
     host: '127.0.0.1',
-    port: 1337, //port should *always* be set at this point but we will defualt it anyway to 1337 just incase.
+    port: 1337, // port should *always* be set at this point but we will defualt it anyway to 1337 just incase.
     scriptSecurity: 2,
     config: 'config.ovpn',
     cwd: process.cwd(),

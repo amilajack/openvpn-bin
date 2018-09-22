@@ -1,7 +1,8 @@
 import openvpnbin from './lib/openvpn-bin.js';
 import argvFactory from 'minimist';
-const argv = argvFactory(process.argv.slice(2));
 import path from 'path';
+
+const argv = argvFactory(process.argv.slice(2));
 
 if (argv.init) {
     var openvpnpath = path.normalize(getOpenVPNPath()), //path of openvpn exsecutable
@@ -35,5 +36,5 @@ function getOpenVPNPath() {
         case 'linux':
             return '/usr/local/opt/openvpn/sbin/openvpn';
             break;
-    }    
+    }
 }

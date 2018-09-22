@@ -5,13 +5,13 @@ import path from 'path';
 const argv = argvFactory(process.argv.slice(2));
 
 if (argv.init) {
-  var openvpnpath = path.normalize(getOpenVPNPath()), //path of openvpn exsecutable
-    args = {
-      host: '127.0.0.1',
-      port: 1337,
-      scriptSecurity: 2,
-      config: 'config.ovpn'
-    };
+  var openvpnpath = path.normalize(getOpenVPNPath()) //path of openvpn exsecutable
+  const args = {
+    host: '127.0.0.1',
+    port: 1337,
+    scriptSecurity: 2,
+    config: 'config.ovpn'
+  };
   console.log(openvpnbin.initialize(openvpnpath, args));
 }
 

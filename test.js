@@ -1,6 +1,7 @@
-var openvpnbin = require('./lib/openvpn-bin.js');
-var argv = require('minimist')(process.argv.slice(2));
-var path = require('path');
+import openvpnbin from './lib/openvpn-bin.js';
+import argvFactory from 'minimist';
+const argv = argvFactory(process.argv.slice(2));
+import path from 'path';
 
 if (argv.init) {
     var openvpnpath = path.normalize(getOpenVPNPath()), //path of openvpn exsecutable

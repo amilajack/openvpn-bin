@@ -1,1 +1,1 @@
-module.exports = require('./lib/openvpn-bin.js');
+export default require('./lib/openvpn-bin.js');

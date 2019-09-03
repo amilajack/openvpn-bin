@@ -1,6 +1,6 @@
 {
    "name": "@amilajack/openvpn-bin",
-   "version": "0.0.0",
+   "version": "0.0.1-0",
    "description": "Initialize a openvpn instance for mac, windows & linux",
    "author": {
       "name": "Amila Welihinda",
